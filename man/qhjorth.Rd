@@ -1,0 +1,42 @@
+\name{qhjorth}
+\alias{qhjorth}
+\title{Hjorth quantile function}
+\description{Computes the quantile function of the Hjorth distribution}
+\usage{
+qhjorth(x, u = 0.5, delta = 1, theta = 1, beta = 1)
+}
+\arguments{
+  \item{x}{scale or vector of positive values at which the integrated hazard rate function needs to be computed}
+  \item{u}{scale or vector of positive values at which the integrated hazard rate function needs to be computed, must be of the same length as \code{x}}
+  \item{delta}{the value of delta parameter, must be positive}
+  \item{theta}{the value of theta parameter, must be positive}
+  \item{beta}{the value of beta parameter, must be positive}
+}
+\value{An object of the same length as \code{x}, giving the hazard rate function values computed at \code{x} and \code{u}}
+\references{S. Nadarajah, S. A. A. Bakar, Tabulations of survival models for actuarial use, submitted}
+\author{Saralees Nadarajah}
+\note{If incorrect values or inconsistent lengths are input for \code{x},
+\code{u} or the model parameters then NaNs will be returned as the output.}
+
+\examples{x=runif(10,min=0,max=1)
+y=qhjorth(x)
+
+## The function is currently defined as
+function (x, u = 0.5, delta = 1, theta = 1, beta = 1) 
+{
+    m = length(x)
+    ret = rep(NaN, m)
+    if (x > 0 & u > 0 & u < 1 & length(x) == length(u) & delta > 
+        0 & theta > 0 & beta > 0) {
+        for (i in 1:m) {
+            ff = function(t) {
+                delta * x[i] * t + delta * t * t/2 + (theta/beta) * 
+                  log(1 + beta * t/(1 + beta * x[i])) + log(u[i])
+            }
+            ret[i] = uniroot(ff, lower = 0, upper = 100)$root
+        }
+    }
+    return(ret)
+  }
+}
+\keyword{Hjorth distribution}
