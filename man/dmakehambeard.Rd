@@ -7,10 +7,10 @@ dmakehambeard(x, alpha = 1, beta = 1, rho = 1, epsilon = 1)
 }
 \arguments{
   \item{x}{scale or vector of positive values at which the pdf needs to be computed}
-  \item{alpha}{the value of alpha parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
   \item{beta}{the value of beta parameter, must be positive}
-  \item{rho}{the value of rho parameter, can be any real}
-  \item{epsilon}{the value of epsilon parameter, can be any real}
+  \item{rho}{the value of rho parameter, must be positive}
+  \item{epsilon}{the value of epsilon parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
 \references{S. Nadarajah, S. A. A. Bakar, Tabulations of survival models for actuarial use, submitted}
@@ -19,21 +19,5 @@ dmakehambeard(x, alpha = 1, beta = 1, rho = 1, epsilon = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dmakehambeard(x)
-
-## The function is currently defined as
-function (x, alpha = 1, beta = 1, rho = 1, epsilon = 1) 
-{
-    ret = NaN
-    if (x > 0 & beta > 0) {
-        m = length(x)
-        y = x
-        for (i in 1:m) {
-            y[i] = integrate(hmakehambeard, lower = 0, upper = x[i])$value
-        }
-        ret = exp(-y) * hmakehambeard(x, alpha = 1, beta = 1, 
-            rho = 1, epsilon = 1)
-    }
-    return(ret)
-  }
 }
 \keyword{Makeham-Beard distribution}

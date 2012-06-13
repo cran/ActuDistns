@@ -16,14 +16,5 @@ dbetad(x, a = 1, b = 1)
 \note{If incorrect values are input for \code{x} or the model parameters then NaNs will be returned as the output.}
 
 \examples{x=runif(10,min=0,max=1)
-y=dbetad(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | a <= 0 | b <= 0, NaN, dbeta(x, 
-        shape1 = a, shape2 = b))
-    return(ret)
-  }
-}
+y=dbetad(x)}
 \keyword{Beta distribution}

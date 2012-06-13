@@ -21,14 +21,5 @@ iaddweibull(x, t = 1, a = 1, b = 1, c = 1, d = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=iaddweibull(x)
-
-## The function is currently defined as
-function (x, t = 1, a = 1, b = 1, c = 1, d = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | a <= 
-        0 | b <= 0 | c <= 0 | d <= 0, NaN, a^b * (x + t)^b + 
-        c^d * (x + t)^d)
-    return(ret)
-  }
 }
 \keyword{Additive Weibull distribution}

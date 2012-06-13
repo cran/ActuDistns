@@ -7,8 +7,8 @@ dgammad(x, alpha = 1, lambda = 1)
 }
 \arguments{
   \item{x}{scale or vector of positive values at which the pdf needs to be computed}
-  \item{alpha}{the value of alpha parameter, can be any real}
-  \item{lambda}{the value of lambda parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
+  \item{lambda}{the value of lambda parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
 \references{S. Nadarajah, S. A. A. Bakar, Tabulations of survival models for actuarial use, submitted}
@@ -17,13 +17,5 @@ dgammad(x, alpha = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dgammad(x)
-
-## The function is currently defined as
-function (x, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0, NaN, dgamma(x, shape = exp(lambda), 
-        scale = exp(-alpha * exp(-lambda))))
-    return(ret)
-  }
 }
 \keyword{Gamma distribution}

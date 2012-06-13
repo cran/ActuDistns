@@ -18,18 +18,5 @@ daddweibull(x, a = 1, b = 1, c = 1, d = 1)
 \note{If incorrect values are input for \code{x} or the model parameters then NaNs will be returned as the output.}
 
 \examples{x=runif(10,min=0,max=1)
-y=daddweibull(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 1, c = 1, d = 1) 
-{
-    ret = ifelse(x <= 0 | a <= 0 | b <= 0 | c <= 0 | d <= 0, 
-        NaN, (a^b * b * x^{
-            b - 1
-        } + c^d * d * x^{
-            d - 1
-        }) * exp(-(a * x)^b - (c * x)^d))
-    return(ret)
-  }
-}
+y=daddweibull(x)}
 \keyword{Additive Weibull}

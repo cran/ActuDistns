@@ -19,15 +19,5 @@ qjshape(x, u = 0.5, b = 1, nu = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qjshape(x)
-
-## The function is currently defined as
-function (x, u = 0.5, b = 1, nu = 1) 
-{
-    y = 1 - x/b
-    ret = ifelse(y <= 0 | y >= 1 | u <= 0 | u >= 1 | length(x) != 
-        length(u) | b <= 0 | nu <= 0, NaN, b * (1 - (1 - (1 - 
-        u * (1 - (1 - y * y)^nu))^(1/nu))^(1/2)) - x)
-    return(ret)
-  }
 }
 \keyword{J-shaped distribution}

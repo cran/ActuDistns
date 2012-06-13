@@ -1,7 +1,7 @@
 Package: ActuDistns
 Type: Package
 Title: Functions for actuarial scientists
-Version: 1.0
+Version: 2.0
 Date: 2012-06-13
 Author: Saralees Nadarajah
 Maintainer: Saralees Nadarajah <Saralees.Nadarajah@manchester.ac.uk>
@@ -10,6 +10,6 @@ Description: Computes the probability density function, hazard rate
         function, integrated hazard rate function and the quantile
         function for 44 commonly used survival models
 License: GPL (>= 2)
-Packaged: 2012-06-16 08:34:13 UTC; mbbsssn2
+Packaged: 2012-07-12 09:54:59 UTC; mbbsssn2
 Repository: CRAN
-Date/Publication: 2012-06-17 00:08:40
+Date/Publication: 2012-07-12 10:11:07

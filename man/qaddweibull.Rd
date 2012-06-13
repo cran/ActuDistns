@@ -21,22 +21,5 @@ qaddweibull(x, u = 0.5, a = 1, b = 1, c = 1, d = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qaddweibull(x)
-
-## The function is currently defined as
-function (x, u = 0.5, a = 1, b = 1, c = 1, d = 1) 
-{
-    m = length(x)
-    ret = rep(NaN, m)
-    if (x > 0 & u > 0 & u < 1 & length(x) == length(u) & a > 
-        0 & b > 0 & c > 0 & d > 0) {
-        for (i in 1:m) {
-            ff = function(t) {
-                a^b * (x[i] + t)^b + c^d * (x[i] + t)^d + log(u[i])
-            }
-            ret[i] = uniroot(ff, lower = 0, upper = 100)$root
-        }
-    }
-    return(ret)
-  }
 }
 \keyword{Additive Weibull distribution}

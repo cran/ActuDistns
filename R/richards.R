@@ -4,20 +4,19 @@
 
 dgompertz=function(x,alpha=1,beta=1)
 {
-	ret = ifelse(x<=0 | beta<=0,
-          NaN,exp(alpha+beta*x)*exp((1/beta)*exp(alpha)*(1-exp(beta*x))))
+	ret = ifelse(x<=0 | alpha<=0 | beta<=0 ,
+          NaN,alpha*exp(beta*x)*exp((1/beta)*alpha*(1-exp(beta*x))))
 	return(ret)
 }
-
 
 
 #Makeham probability density function
 
 dmakeham=function(x,alpha=1,beta=1,epsilon=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,NaN,
-          exp(epsilon)+exp(alpha+beta*x)*
-          exp(-x*exp(epsilon)+(1/beta)*exp(alpha)*(1-exp(beta*x))))
+	ret = ifelse(x<=0 | alpha<=0 | beta<=0 | epsilon<=0,NaN,
+          epsilon+alpha*exp(beta*x)*
+          exp(-x*epsilon+(1/beta)*alpha*(1-exp(beta*x))))
 	return(ret)
 }
 
@@ -27,9 +26,9 @@ dmakeham=function(x,alpha=1,beta=1,epsilon=1)
 
 dperks=function(x,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,NaN,
-           exp(alpha+beta*x)*(1+exp(alpha))/
-           (1+exp(alpha+beta*x))**2)
+	ret	= ifelse(x<=0 | alpha<=0 | beta<=0,NaN,
+           alpha*exp(beta*x)*(1+alpha)/
+           (1+alpha*exp(beta*x))**2)
 	return(ret)
 }
 
@@ -39,9 +38,9 @@ dperks=function(x,alpha=1,beta=1)
 
 dbeard=function(x,alpha=1,beta=1,rho=1)
 {
-	ret=ifelse(x<=0 | beta<=0,NaN,
-           exp(alpha+beta*x)*(1+exp(alpha+rho))**(exp(-rho/beta))/
-           (1+exp(alpha+rho+beta*x))**(1+exp(-rho/beta)))
+	ret=ifelse(x<=0 | alpha<=0 | beta<=0 | rho<=0,NaN,
+           alpha*exp(beta*x)*(1+alpha*rho)**(rho**(-1/beta))/
+           (1+alpha*rho*exp(beta*x))**(1+rho**(-1/beta)))
 	return(ret)
 }
 
@@ -51,12 +50,9 @@ dbeard=function(x,alpha=1,beta=1,rho=1)
 
 dmakehamperks=function(x,alpha=1,beta=1,epsilon=1)
 {
-	ret=NaN
-    if (x>0&beta>0)
-       {m=length(x)
-       y=x
-       for (i in 1:m) {y[i]=integrate(hmakehamperks,lower=0,upper=x[i])$value}
-       ret=exp(-y)*hmakehamperks(x,alpha=1,beta=1,epsilon=1)}
+	ret = ifelse(x<=0 | alpha<=0 | beta<=0 | epsilon<=0,NaN,
+          (epsilon+alpha*exp(beta*x))/(1+alpha*exp(beta*x))*
+          exp(-epsilon*x-(1/beta)*(epsilon-1)*log((1+alpha)/(1+alpha*exp(beta*x)))))
 	return(ret)
 }
 
@@ -66,12 +62,9 @@ dmakehamperks=function(x,alpha=1,beta=1,epsilon=1)
 
 dmakehambeard=function(x,alpha=1,beta=1,rho=1,epsilon=1)
 {
-	ret=NaN
-    if (x>0&beta>0)
-       {m=length(x)
-       y=x
-       for (i in 1:m) {y[i]=integrate(hmakehambeard,lower=0,upper=x[i])$value}
-       ret=exp(-y)*hmakehambeard(x,alpha=1,beta=1,rho=1,epsilon=1)}
+	ret = ifelse(x<=0 | alpha<=0 | beta<=0 | epsilon<=0 | rho<=0,NaN,
+          (epsilon+alpha*exp(beta*x))/(1+alpha*rho*exp(beta*x))*
+          exp(-epsilon*x-(1/beta)*(1/rho)*(rho*epsilon-1)*log((1+alpha*rho)/(1+alpha*rho*exp(beta*x)))))
 	return(ret)
 }
 
@@ -81,7 +74,7 @@ dmakehambeard=function(x,alpha=1,beta=1,rho=1,epsilon=1)
 
 dexponential=function(x,alpha=1)
 {
-	ret	= ifelse(x<=0, NaN,exp(alpha)*exp(-exp(alpha)*x))
+	ret	= ifelse(x<=0 | alpha<=0, NaN,alpha*exp(-alpha*x))
 	return(ret)
 }
 
@@ -91,7 +84,7 @@ dexponential=function(x,alpha=1)
 
 dpareto=function(x,alpha=1,m=1)
 {
-	ret	= ifelse(x<=m | m<=0,NaN,(m/x)**(exp(alpha))*exp(alpha)/x)
+	ret	= ifelse(x<=m | m<=0 | alpha<=0,NaN,(m/x)**(alpha)*alpha/x)
 	return(ret)
 }
 
@@ -101,8 +94,8 @@ dpareto=function(x,alpha=1,m=1)
 
 dweibull=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | sigma<=0,NaN,
-           exp(alpha)*x**{sigma-1}*exp(-(1/sigma)*exp(alpha)*x**sigma))
+	ret	= ifelse(x<=0 | sigma<=0 | alpha<=0,NaN,
+           sigma*alpha**(-sigma)*x**(sigma-1)*exp(-(x/alpha)**sigma))
 	return(ret)
 }
 
@@ -112,7 +105,7 @@ dweibull=function(x,alpha=1,sigma=1)
 
 dlogistic=function(x,alpha=1,sigma=1)
 {
-	ret	= dlogis(x,location=-alpha,scale=exp(sigma))
+	ret	= ifelse (sigma<=0,NaN,dlogis(x,location=alpha,scale=sigma))
 	return(ret)
 }
 
@@ -124,9 +117,7 @@ dlogistic=function(x,alpha=1,sigma=1)
 
 dloglogistic=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,(exp(alpha+sigma)*
-           x**{exp(sigma)-1})/
-           (1+exp(alpha)*x**{exp(sigma)})**2)
+	ret	= ifelse(x<=0 | alpha<=0 | sigma<=0, NaN,alpha*sigma*x**(sigma-1)*(1+alpha*x**sigma)**(-2))
 	return(ret)
 }
 
@@ -136,7 +127,7 @@ dloglogistic=function(x,alpha=1,sigma=1)
 
 dnormal=function(x,alpha=1,sigma=1)
 {
-	ret	= dnorm(x,mean=-alpha,sd=exp(sigma))
+	ret	= ifelse (sigma<=0,NaN,dnorm(x,mean=alpha,sd=sigma))
 	return(ret)
 }
 
@@ -147,8 +138,8 @@ dnormal=function(x,alpha=1,sigma=1)
 
 dlognormal=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dlnorm(x,meanlog=-alpha,sdlog=exp(sigma)))
+	ret	= ifelse(x<=0 | sigma<=0, NaN,
+           dlnorm(x,meanlog=alpha,sdlog=sigma))
 	return(ret)
 }
 
@@ -159,13 +150,10 @@ dlognormal=function(x,alpha=1,sigma=1)
 
 dinvgauss=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dinvGauss(x,nu=exp(-alpha),lambda=exp(sigma)))
+	ret	= ifelse(x<=0 | alpha<=0 | sigma<=0, NaN,
+           sqrt(sigma/(2*pi*x**3))*exp(-sigma*(x-alpha)**2/(2*alpha**2*x)))
 	return(ret)
 }
-
-#The function {\sf dinvGauss} is  from the {\sf R} contributed package {\sf SuppDists}.
-
 
 
 
@@ -173,9 +161,8 @@ dinvgauss=function(x,alpha=1,sigma=1)
 
 dgammad=function(x,alpha=1,lambda=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dgamma(x,shape=exp(lambda),
-           scale=exp(-alpha*exp(-lambda))))
+	ret	= ifelse(x<=0 | alpha<=0 | lambda<=0, NaN,
+           dgamma(x,shape=lambda,scale=alpha))
 	return(ret)
 }
 
@@ -185,16 +172,12 @@ dgammad=function(x,alpha=1,lambda=1)
 
 #Generalized-gamma probability density function
 
-dgengammad=function(x,alpha=1,lambda=1,sigma=1)
+dgengammad=function(x,b=1,d=1,k=1)
 {
-	ret	= ifelse(x<=0 | sigma<=0, NaN,
-           dgengamma(x,scale=((1/sigma)*
-           exp(alpha))**(-(1/sigma)*
-           exp(-lambda)),d=sigma,k=exp(lambda)))
+	ret	= ifelse(x<=0 | b<=0 | d<=0 | k<=0, NaN,
+            d*(b**(-d*k))*x**(d*k-1)*exp(-(x/b)**d)/gamma(k))           
 	return(ret)
 }
-
-#The function {\sf dgengamma} is  from the {\sf R} contributed package {\sf VGAM}.
 
 
 #Linear probability density function
@@ -552,11 +535,9 @@ dfw=function(x,alpha=1,beta=1)
 dgenF=function(x,beta=0,sigma=1,m1=1,m2=1)
 {
     ret	= ifelse(x<=0 | sigma<=0 | m1<=0 | m2<=0,
-           NaN,dgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2))
+           NaN,exp(-beta*m1/sigma)*(m1/m2)**m1*x**(m1/sigma-1)/(sigma*beta(m1,m2)*(1+(m1/m2)*(exp(-beta)*x)**(1/sigma))**(m1+m2)))
 	return(ret)
 }
-
-#The function {\sf dgenf.orig} is  from the {\sf R} contributed package {\sf flexsurv}.
 
 
 
@@ -564,8 +545,8 @@ dgenF=function(x,beta=0,sigma=1,m1=1,m2=1)
 
 hgompertz=function(x,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,
-           NaN,exp(alpha+beta*x))
+	ret	= ifelse(x<=0 | alpha<=0 | beta<=0,
+           NaN,alpha*exp(beta*x))
 	return(ret)
 }
 
@@ -575,8 +556,8 @@ hgompertz=function(x,alpha=1,beta=1)
 
 hmakeham=function(x,alpha=1,beta=1,epsilon=1)
 {
-	ret	=ifelse(x<=0 | beta<=0,NaN,
-          exp(epsilon)+exp(alpha+beta*x))
+	ret	=ifelse(x<=0 | alpha<=0 | beta<=0 | epsilon <=0,NaN,
+          epsilon+alpha*exp(beta*x))
 	return(ret)
 }
 
@@ -586,9 +567,9 @@ hmakeham=function(x,alpha=1,beta=1,epsilon=1)
 
 hperks=function(x,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,NaN,
-           exp(alpha+beta*x) /
-           (1+exp(alpha+beta*x)))
+	ret	= ifelse(x<=0 | alpha<=0 | beta<=0,NaN,
+           alpha*exp(beta*x) /
+           (1+alpha*exp(beta*x)))
 	return(ret)
 }
 
@@ -598,9 +579,9 @@ hperks=function(x,alpha=1,beta=1)
 
 hbeard=function(x,alpha=1,beta=1,rho=1)
 {
-	ret=ifelse(x<=0 | beta<=0,NaN,
-           exp(alpha+beta*x) /
-           (1+exp(alpha+rho+beta*x)))
+	ret=ifelse(x<=0 | alpha<=0 | beta<=0 | rho<=0,NaN,
+           alpha*exp(beta*x) /
+           (1+alpha*rho*exp(beta*x)))
 	return(ret)
 }
 
@@ -610,10 +591,9 @@ hbeard=function(x,alpha=1,beta=1,rho=1)
 
 hmakehamperks=function(x,alpha=1,beta=1,epsilon=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,
-           NaN,(exp(epsilon) +
-           exp(alpha+beta*x)) /
-           (1+exp(alpha+beta*x)))
+	ret	= ifelse(x<=0 | alpha<=0 | beta<=0 | epsilon<=0,
+           NaN,(epsilon+alpha*exp(beta*x)) /
+           (1+alpha*exp(beta*x)))
 	return(ret)
 }
 
@@ -623,10 +603,9 @@ hmakehamperks=function(x,alpha=1,beta=1,epsilon=1)
 
 hmakehambeard=function(x,alpha=1,beta=1,rho=1,epsilon=1)
 {
-	ret	= ifelse(x<=0 | beta<=0,
-           NaN,(exp(epsilon) +
-           exp(alpha+beta*x)) /
-           (1+exp(alpha+rho+beta*x)))
+	ret	= ifelse(x<=0 | alpha<=0 | beta<=0 | rho<=0 | epsilon<=0,
+           NaN,(epsilon+alpha*exp(beta*x)) /
+           (1+alpha*rho*exp(beta*x)))
 	return(ret)
 }
 
@@ -636,7 +615,7 @@ hmakehambeard=function(x,alpha=1,beta=1,rho=1,epsilon=1)
 
 hexponential=function(x,alpha=1)
 {
-	ret	= ifelse(x<=0, NaN,exp(alpha))
+	ret	= ifelse(x<=0 | alpha<=0, NaN,alpha)
 	return(ret)
 }
 
@@ -646,7 +625,7 @@ hexponential=function(x,alpha=1)
 
 hpareto=function(x,alpha=1,m=1)
 {
-	ret	= ifelse(x<=m | m<=0,NaN,exp(alpha)/x)
+	ret	= ifelse(x<=m | m<=0 | alpha<=0,NaN,alpha/x)
 	return(ret)
 }
 
@@ -656,8 +635,8 @@ hpareto=function(x,alpha=1,m=1)
 
 hweibull=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | sigma<=0,NaN,
-           exp(alpha)*x^{sigma-1})
+	ret	= ifelse(x<=0 | sigma<=0 | alpha<=0,NaN,
+           alpha*x**(alpha-1)/sigma**alpha)
 	return(ret)
 }
 
@@ -667,8 +646,8 @@ hweibull=function(x,alpha=1,sigma=1)
 
 hlogistic=function(x,alpha=1,sigma=1)
 {
-	ret	= 1 / (exp(sigma)*
-           (1+exp( -(x+alpha)/exp(sigma))))
+	ret	= ifelse(sigma<=0,NaN,1 / (sigma*
+           (1+exp( -(x-alpha)/sigma))))
 	return(ret)
 }
 
@@ -678,9 +657,8 @@ hlogistic=function(x,alpha=1,sigma=1)
 
 hloglogistic=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,(exp(alpha+sigma)*
-           x^{exp(sigma)-1})/
-           (1+exp(alpha)*x^{exp(sigma)}))
+	ret	= ifelse(x<=0 | sigma<=0 | alpha<=0, NaN,
+                alpha*sigma*x**(sigma-1)/(1+alpha*x**sigma))
 	return(ret)
 }
 
@@ -690,8 +668,8 @@ hloglogistic=function(x,alpha=1,sigma=1)
 
 hnormal=function(x,alpha=1,sigma=1)
 {
-	ret	= dnorm(x,mean=-alpha,sd=exp(sigma)) /
-          (1-pnorm(x,mean=-alpha,sd=exp(sigma)))
+	ret	= ifelse(x<=0 | sigma<=0,NaN,dnorm(x,mean=alpha,sd=sigma) /
+          (1-pnorm(x,mean=alpha,sd=sigma)))
 	return(ret)
 }
 
@@ -702,9 +680,9 @@ hnormal=function(x,alpha=1,sigma=1)
 
 hlognormal=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dlnorm(x,meanlog=-alpha,sdlog=exp(sigma)) /
-           (1-plnorm(x,meanlog=-alpha,sdlog=exp(sigma))))
+	ret	= ifelse(x<=0 | sigma<=0, NaN,
+           dlnorm(x,meanlog=alpha,sdlog=sigma) /
+           (1-plnorm(x,meanlog=alpha,sdlog=sigma)))
 	return(ret)
 }
 
@@ -715,24 +693,24 @@ hlognormal=function(x,alpha=1,sigma=1)
 
 hinvgauss=function(x,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dinvGauss(x,nu=exp(-alpha),lambda=exp(sigma)) /
-           (1-pinvGauss(x,nu=exp(-alpha),lambda=exp(sigma))))
+	ret=NaN
+        if (x>0&alpha>0&sigma>0)
+        {tt=sqrt(sigma/(2*pi*x**3))*exp(-sigma*(x-alpha)**2/(2*alpha**2*x))
+        tt2=pnorm(sqrt(sigma/x)*(x/alpha-1))+exp(2*sigma/alpha)*pnorm(-sqrt(sigma/x)*(x/alpha+1))
+        ret=tt/(1-tt2)}
 	return(ret)
 }
 
-#The functions {\sf dinvGauss} and {\sf pinvGauss} are  from the {\sf R} contributed package {\sf SuppDists}.
+#The function {\sf pnorm} is from the {\sf R} base package.
 
 
 #Gamma hazard rate function
 
 hgamma=function(x,alpha=1,lambda=1)
 {
-	ret	= ifelse(x<=0, NaN,
-           dgamma(x,shape=exp(lambda),
-           scale=exp(-alpha*exp(-lambda))) /
-           (1-pgamma(x,shape=exp(lambda),
-           scale=exp(-alpha*exp(-lambda)))))
+	ret	= ifelse(x<=0 | alpha<=0 | lambda<=0, NaN,
+           dgamma(x,shape=lambda,scale=alpha) /
+           (1-pgamma(x,shape=lambda,scale=alpha)))
 	return(ret)
 }
 
@@ -742,19 +720,14 @@ hgamma=function(x,alpha=1,lambda=1)
 
 #Generalized-gamma hazard rate function
 
-hgengamma=function(x,alpha=1,lambda=1,sigma=1)
+hgengamma=function(x,b=1,d=1,k=1)
 {
-	ret	= ifelse(x<=0 | sigma<=0, NaN,
-           dgengamma(x,scale=((1/sigma)*
-           exp(alpha))**(-(1/sigma)*
-           exp(-lambda)),d=sigma,k=exp(lambda)) /
-           (1-pgengamma(x,scale=((1/sigma)*
-           exp(alpha))**(-(1/sigma)*
-           exp(-lambda)),d=sigma,k=exp(lambda))))
+	ret	= ifelse(x<=0 | b<=0 | d<=0 | k<=0, NaN,
+          d*(b**(-d*k))*x**(d*k-1)*exp(-(x/b)**d)/(gamma(k)*(1-pgamma((x/b)**d,shape=k))))
 	return(ret)
 }
 
-#The functions {\sf dgengamma} and {\sf pgengamma} are  from the {\sf R} contributed package {\sf VGAM}.
+#The function {\sf pgamma} is from the {\sf R} base package.
 
 
 #Linear hazard rate function
@@ -1132,12 +1105,13 @@ hfw=function(x,alpha=1,beta=1)
 hgenF=function(x,beta=0,sigma=1,m1=1,m2=1)
 {
     ret	= ifelse(x<=0 | sigma<=0 | m1<=0 | m2<=0,
-           NaN,dgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2)/
-           (1-pgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2)))
+           NaN,exp(-beta*m1/sigma)*(m1/m2)**m1*x**(m1/sigma-1)/
+           (sigma*beta(m1,m2)*(1+(m1/m2)*(exp(-beta)*x)**(1/sigma))**(m1+m2)*
+           (1-pbeta(m1*(exp(-beta)*x)**(1/sigma)/(m2+m1*(exp(-beta)*x)**(1/sigma)),shape1=m1,shape2=m2))))
 	return(ret)
 }
 
-#The functions {\sf dgenf.orig} and {\sf pgenf.orig} are  from the {\sf R} contributed package {\sf flexsurv}.
+#The function {\sf pbeta} is  from the {\sf R} base package.
 
 
 
@@ -1145,10 +1119,10 @@ hgenF=function(x,beta=0,sigma=1,m1=1,m2=1)
 
 igompertz=function(x,t=1,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0,
            NaN, (1/beta)*
            (exp(beta*t)-1)*
-           exp(alpha+beta*x))
+           alpha*exp(beta*x))
 	return(ret)
 }
 
@@ -1158,10 +1132,10 @@ igompertz=function(x,t=1,alpha=1,beta=1)
 
 imakeham=function(x,t=1,alpha=1,beta=1,epsilon=1)
 {
-	ret	=ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
-          NaN,t*exp(epsilon)+(1/beta)*
+	ret	=ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0 | epsilon<=0,
+          NaN,t*epsilon+(1/beta)*
           (exp(beta*t)-1)*
-          exp(alpha+beta*x))
+          alpha*exp(beta*x))
 	return(ret)
 }
 
@@ -1171,10 +1145,10 @@ imakeham=function(x,t=1,alpha=1,beta=1,epsilon=1)
 
 iperks=function(x,t=1,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0,
            NaN, (1/beta)*log(
-           (1+exp(alpha+beta*(x+t))) /
-           (1+exp(alpha+beta*x))))
+           (1+alpha*exp(beta*(x+t))) /
+           (1+alpha*exp(beta*x))))
 	return(ret)
 }
 
@@ -1184,10 +1158,10 @@ iperks=function(x,t=1,alpha=1,beta=1)
 
 ibeard=function(x,t=1,alpha=1,beta=1,rho=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
-           NaN, (1/beta)*exp(-rho)*
-           log((1+exp(alpha+rho+beta*(x+t))) /
-           (1+exp(alpha+rho+beta*x))))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0 | rho<=0,
+           NaN, (1/beta)*(1/rho)*
+           log((1+alpha*rho*exp(beta*(x+t))) /
+           (1+alpha*rho*exp(beta*x))))
 	return(ret)
 }
 
@@ -1197,11 +1171,11 @@ ibeard=function(x,t=1,alpha=1,beta=1,rho=1)
 
 imakehamperks=function(x,t=1,alpha=1,beta=1,epsilon=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
-           NaN, t*exp(epsilon)+(1/beta)*
-           (1-exp(epsilon))*
-           log((1+exp(alpha+beta*(x+t))) /
-           (1+exp(alpha+beta*x))))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0 | epsilon<=0,
+           NaN, t*epsilon+(1/beta)*
+           (1-epsilon)*
+           log((1+alpha*exp(beta*(x+t))) /
+           (1+alpha*exp(beta*x))))
 	return(ret)
 }
 
@@ -1211,11 +1185,11 @@ imakehamperks=function(x,t=1,alpha=1,beta=1,epsilon=1)
 
 imakehambeard=function(x,t=1,alpha=1,beta=1,rho=1,epsilon=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | beta<=0,
-           NaN, t*exp(epsilon)+(1/beta)*
-           (exp(-rho)-exp(epsilon))*
-           log((1+exp(alpha+rho+beta*(x+t))) /
-           (1+exp(alpha+rho+beta*x))))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | beta<=0 | rho<=0 | epsilon<=0,
+           NaN, t*epsilon+(1/beta)*
+           (1/rho-epsilon)*
+           log((1+alpha*rho*exp(beta*(x+t))) /
+           (1+alpha*rho*exp(beta*x))))
 	return(ret)
 }
 
@@ -1225,8 +1199,8 @@ imakehambeard=function(x,t=1,alpha=1,beta=1,rho=1,epsilon=1)
 
 iexponential=function(x,t=1,alpha=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t),
-           NaN,t*exp(alpha))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0,
+           NaN,t*alpha)
 	return(ret)
 }
 
@@ -1236,8 +1210,8 @@ iexponential=function(x,t=1,alpha=1)
 
 ipareto=function(x,t=1,alpha=1,m=1)
 {
-	ret	= ifelse(x<=m | t<=0 | m<=0 | length(x)!=length(t),
-           NaN,exp(alpha)*log(1+t/x))
+	ret	= ifelse(x<=m | t<=0 | m<=0 | length(x)!=length(t) | alpha<=0,
+           NaN,alpha*log(1+t/x))
 	return(ret)
 }
 
@@ -1247,12 +1221,9 @@ ipareto=function(x,t=1,alpha=1,m=1)
 
 iweibull=function(x,t=1,alpha=1,sigma=1)
 {
-	ret=NaN
-    if (x>0 & t>=0 & length(x)==length(t) & sigma==0)
-        ret=exp(alpha)*log(1+t/x)
-    if (x>0 & t>=0 & length(x)==length(t) & sigma>0)
-        ret=exp(alpha)*((x+t)**sigma-x**sigma)/sigma
-    return(ret)
+	ret=ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | sigma<=0,
+                   NaN,((x+t)**sigma-x**sigma)/alpha**sigma)
+        return(ret)
 }
 
 
@@ -1261,9 +1232,9 @@ iweibull=function(x,t=1,alpha=1,sigma=1)
 
 ilogistic=function(x,t=1,alpha=1,sigma=1)
 {
-	ret	= ifelse(length(x)!=length(t),NaN,
-           log((1 + exp((x+t+alpha)*exp(-sigma))) /
-           (1 + exp((x+alpha)*exp(-sigma)))))
+	ret	= ifelse(length(x)!=length(t) | sigma<=0,NaN,
+           log((1 + exp((x+t-alpha)/sigma)) /
+           (1 + exp((x-alpha)/sigma))))
 	return(ret)
 }
 
@@ -1273,10 +1244,10 @@ ilogistic=function(x,t=1,alpha=1,sigma=1)
 
 iloglogistic=function(x,t=1,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t),
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | sigma<=0,
            NaN, log(
-           (1+exp(alpha)*(x+t)^{exp(sigma)}) /
-           (1+exp(alpha)*x^{exp(sigma)}) ))
+           (1+alpha*(x+t)**sigma) /
+           (1+alpha*x**sigma)))
 	return(ret)
 }
 
@@ -1287,9 +1258,9 @@ iloglogistic=function(x,t=1,alpha=1,sigma=1)
 
 inormal=function(x,t=1,alpha=1,sigma=1)
 {
-	ret	= ifelse(length(x)!=length(t),NaN,
-           log((1-pnorm((x+alpha)/exp(sigma))) /
-           (1-pnorm((x+t+alpha)/exp(sigma)))))
+	ret	= ifelse(length(x)!=length(t) | sigma<=0,NaN,
+           log((1-pnorm((x-alpha)/sigma)) /
+           (1-pnorm((x+t-alpha)/sigma))))
 	return(ret)
 }
 
@@ -1300,10 +1271,10 @@ inormal=function(x,t=1,alpha=1,sigma=1)
 
 ilognormal=function(x,t=1,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t),
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | sigma<=0,
            NaN, log(
-           (1-plnorm((log(x)+alpha)/exp(sigma))) /
-           (1-plnorm((log(x+t)+alpha)/exp(sigma)))))
+           (1-plnorm((log(x)-alpha)/sigma)) /
+           (1-plnorm((log(x+t)-alpha)/sigma))))
 	return(ret)
 }
 
@@ -1315,26 +1286,24 @@ ilognormal=function(x,t=1,alpha=1,sigma=1)
 
 iinvgauss=function(x,t=1,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t),
-           NaN,(1-pinvGauss(x,nu=exp(-alpha),
-           lambda=exp(sigma))) /
-           (1-pinvGauss(x+t,nu=exp(-alpha),
-           lambda=exp(sigma))))
+	ret=NaN
+        if (x>0&t>0&length(x)==length(t)&alpha>0&sigma>0)
+        {tt=pnorm(sqrt(sigma/x)*(x/alpha-1))+exp(2*sigma/alpha)*pnorm(-sqrt(sigma/x)*(x/alpha+1))
+        tt2=pnorm(sqrt(sigma/(x+t))*((x+t)/alpha-1))+exp(2*sigma/alpha)*pnorm(-sqrt(sigma/(x+t))*((x+t)/alpha+1))
+        ret=log((1-tt)/(1-tt2))}
 	return(ret)
 }
 
-#The functions {\sf dinvGauss} and {\sf pinvGauss} are  from the {\sf R} contributed package {\sf SuppDists}.
+#The function {\sf pnorm} is from the {\sf R} base package.
 
 
 #Gamma integrated hazard rate function
 
 igamma=function(x,t=1,alpha=1,lambda=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t),
-           NaN, log((1-pgamma(x*exp(alpha*exp(-lambda)),
-           shape=exp(lambda))) /
-           (1-pgamma((x+t)*exp(alpha*exp(-lambda)),
-           shape=exp(lambda))) ))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | alpha<=0 | lambda<=0,
+           NaN, log((1-pgamma(x,shape=lambda,scale=alpha)) /
+           (1-pgamma(x+t,shape=lambda,scale=alpha))))
 	return(ret)
 }
 
@@ -1343,15 +1312,10 @@ igamma=function(x,t=1,alpha=1,lambda=1)
 
 #Generalized-gamma integrated hazard rate function
 
-igengamma=function(x,t=1,alpha=1,lambda=1,sigma=1)
+igengamma=function(x,t=1,b=1,d=1,k=1)
 {
-	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | sigma<=0,
-           NaN, log((1-pgamma(x**sigma*
-           (exp(alpha)/sigma)**(exp(-lambda)),
-           shape=exp(lambda))) /
-           (1-pgamma((x+t)**sigma*
-           (exp(alpha)/sigma)**(exp(-lambda)),
-           shape=exp(lambda))) ))
+	ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) | b<=0 | d<=0 | k<=0,
+           NaN, log((1-pgamma((x/b)**d,shape=k))/(1-pgamma(((x+t)/b)**d,shape=k))))
 	return(ret)
 }
 
@@ -1529,7 +1493,7 @@ iee=function(x,t=1,alpha=1,lambda=1)
 iige=function(x,t=1,alpha=1,lambda=1)
 {
     ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t) |
-           alpha<=0 | lambda<=0,NaN,-log((1-pinv.gevexp(x+t,
+           alpha<=0 | lambda<=0,NaN,-log((1-pinv.genexp(x+t,
            alpha=alpha,lambda=lambda))/
            (1-pinv.genexp(x,
            alpha=alpha,lambda=lambda))))
@@ -1751,12 +1715,12 @@ igenF=function(x,t=1,beta=0,sigma=1,m1=1,m2=1)
 {
     ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t)
            | sigma<=0 | m1<=0 | m2<=0,
-           NaN,log((1-pgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2))
-           /(1-pgenf.orig(x+t,mu=beta,sigma=sigma,s1=m1,s2=m2))))
+           NaN,log((1-pbeta(m1*(exp(-beta)*x)**(1/sigma)/(m2+m1*(exp(-beta)*x)**(1/sigma)),shape1=m1,shape2=m2))/
+           (1-pbeta(m1*(exp(-beta)*(x+t))**(1/sigma)/(m2+m1*(exp(-beta)*(x+t))**(1/sigma)),shape1=m1,shape2=m2))))
 	return(ret)
 }
 
-#The function {\sf pgenf.orig} is  from the {\sf R} contributed package {\sf flexsurv}.
+#The function {\sf pbeta} is  from the {\sf R} base package.
 
 
 
@@ -1765,9 +1729,9 @@ igenF=function(x,t=1,beta=0,sigma=1,m1=1,m2=1)
 
 qgompertz=function(x,u=0.5,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | beta<=0,
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | beta<=0,
            NaN, (1/beta)*
-           log(1-beta*exp(-alpha-beta*x)*log(u)))
+           log(1-(beta/alpha)*exp(-beta*x)*log(u)))
 	return(ret)
 }
 
@@ -1777,7 +1741,7 @@ qgompertz=function(x,u=0.5,alpha=1,beta=1)
 
 qperks=function(x,u=0.5,alpha=1,beta=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | beta<=0,
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | beta<=0,
            NaN, (1/beta)*
            (log((u**(-beta))*
            (1+exp(alpha+beta*x))-1)-alpha)-x)
@@ -1790,10 +1754,10 @@ qperks=function(x,u=0.5,alpha=1,beta=1)
 
 qbeard=function(x,u=0.5,alpha=1,beta=1,rho=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | beta<=0,
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | beta<=0 | rho<=0,
            NaN, (1/beta)*
-           (log((u**(-beta*exp(rho)))*
-           (1+exp(alpha+rho+beta*x))-1)-alpha-rho)-x)
+           (log((u**(-beta*rho))*
+           (1+alpha*rho*exp(beta*x))-1)-log(alpha)-log(rho))-x)
 	return(ret)
 }
 
@@ -1803,8 +1767,8 @@ qbeard=function(x,u=0.5,alpha=1,beta=1,rho=1)
 
 qexponential=function(x,u=0.5,alpha=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u),
-           NaN,-log(u)*exp(-alpha))
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0,
+           NaN,-log(u)/alpha)
 	return(ret)
 }
 
@@ -1814,8 +1778,8 @@ qexponential=function(x,u=0.5,alpha=1)
 
 qpareto=function(x,u=0.5,alpha=1,m=1)
 {
-	ret	= ifelse(x<=m | u<=0 | u>=1 | m<=0 | length(x)!=length(u),
-           NaN,x*exp(-log(u)*exp(alpha))-x)
+	ret	= ifelse(x<=m | u<=0 | u>=1 | m<=0 | length(x)!=length(u) | alpha<=0,
+           NaN,x*exp(-log(u)/alpha)-x)
 	return(ret)
 }
 
@@ -1825,9 +1789,8 @@ qpareto=function(x,u=0.5,alpha=1,m=1)
 
 qweibull=function(x,u=0.5,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | sigma<=0,
-           NaN, exp((1/sigma)*
-           log(x**sigma-sigma*exp(-alpha)*log(u)))-x)
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | sigma<=0,
+           NaN, (x**sigma-alpha**sigma*log(u))**(1/sigma)-x)
 	return(ret)
 }
 
@@ -1837,13 +1800,22 @@ qweibull=function(x,u=0.5,alpha=1,sigma=1)
 
 qlogistic=function(x,u=0.5,alpha=1,sigma=1)
 {
-	ret	= ifelse(u<=0 | u>=1 | length(x)!=length(u),
-           NaN, exp(sigma)*
-           (log(1+exp((x+alpha)*exp(-sigma))-u)-log(u))-
-           x-sigma)
+	ret	= ifelse(u<=0 | u>=1 | length(x)!=length(u) | sigma<=0,
+           NaN, sigma*
+           (log(1+exp((x-alpha)/sigma)-u)-log(u))-x+alpha)
 	return(ret)
 }
 
+
+#Log-logistic quantile function
+
+qloglogis=function(x,u=0.5,alpha=1,sigma=1)
+{
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | sigma<=0,
+           NaN, exp((1/sigma)*
+           (log((1/u)*(1+alpha*x**sigma)-1)-log(alpha))-x))
+	return(ret)
+}
 
 
 
@@ -1851,26 +1823,14 @@ qlogistic=function(x,u=0.5,alpha=1,sigma=1)
 
 qnormal=function(x,u=0.5,alpha=1,sigma=1)
 {
-	ret	= ifelse(u<=0 | u>=1 | length(x)!=length(u),
-           NaN, exp(alpha)*
-           qnorm(1-u*(1-pnorm((x+alpha)*exp(-sigma))))-
-           x*alpha)
+	ret	= ifelse(u<=0 | u>=1 | length(x)!=length(u) | sigma<=0,
+           NaN, sigma*
+           qnorm(1-u*(1-pnorm((x-alpha)/sigma)))+x*alpha)
 	return(ret)
 }
 
 #The functions {\sf pnorm} and {\sf qnorm} are  from the {\sf R} base package.
 
-
-#Log-logistic quantile function
-
-qloglogis=function(x,u=0.5,alpha=1,sigma=1)
-{
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u),
-           NaN, exp(exp(-sigma)*
-           (log((1/u)*(1+exp(alpha)*x**(exp(sigma)))-1)-
-           alpha)-x))
-	return(ret)
-}
 
 
 
@@ -1879,11 +1839,11 @@ qloglogis=function(x,u=0.5,alpha=1,sigma=1)
 qlognormal=function(x,u=0.5,alpha=1,sigma=1)
 {
 	ret=NaN
-    if (x==0 & u>0 & u<1 & length(x)==length(u))
-        ret=exp(exp(sigma)*qnorm(u)-alpha)
-    if (x>0 & u>0 & u<1 & length(x)==length(u))
-       ret=exp(exp(sigma)*qnorm(1-u*
-              (1-pnorm((log(x)+alpha)*exp(-alpha))))-alpha)
+    if (x==0 & u>0 & u<1 & length(x)==length(u) & sigma>0)
+        ret=exp(sigma*qnorm(u)+alpha)
+    if (x>0 & u>0 & u<1 & length(x)==length(u) & sigma>0)
+       ret=exp(sigma*qnorm(1-u*
+              (1-pnorm((log(x)-alpha)/sigma)))+alpha)
 	return(ret)
 }
 
@@ -1894,15 +1854,20 @@ qlognormal=function(x,u=0.5,alpha=1,sigma=1)
 
 qinversegaussian=function(x,u=0.5,alpha=1,sigma=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u),
-           NaN, qinvGauss(1-u*
-           (1-pinvGauss(x,nu=exp(-alpha),
-           lambda=exp(sigma))),
-           nu=exp(-alpha),lambda=exp(sigma))-x)
+	m=length(x)
+        ret=rep(NaN,m)
+        if (x>0&u>0&u<1&length(x)==length(u)&alpha>0&sigma>0)
+        {ret=x
+        for (i in 1:m)
+        {ff=function (t)
+        {tt=pnorm(sqrt(sigma/x[i])*(x[i]/alpha-1))+exp(2*sigma/alpha)*pnorm(-sqrt(sigma/x[i])*(x[i]/alpha+1))
+        tt2=pnorm(sqrt(sigma/(x[i]+t))*((x[i]+t)/alpha-1))+exp(2*sigma/alpha)*pnorm(-sqrt(sigma/(x[i]+t))*((x[i]+t)/alpha+1))
+        return(log((1-tt)/(1-tt2))+log(u[i]))}
+        ret[i]=uniroot(ff,lower=0,upper=1000)$root}}
 	return(ret)
 }
 
-#The functions {\sf dinvGauss} and {\sf pinvGauss} are  from the {\sf R} contributed package {\sf SuppDists}.
+#The function {\sf pnorm} is from the {\sf R} base package.
 
 
 
@@ -1910,11 +1875,8 @@ qinversegaussian=function(x,u=0.5,alpha=1,sigma=1)
 
 qgammad=function(x,u=0.5,alpha=1,lambda=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u),
-           NaN,exp(-alpha*exp(-lambda))*
-           qgamma(1-u*(1-pgamma(x**alpha*
-           (exp(alpha)/sigma)**(exp(-lambda)),
-           shape=exp(lambda))),shape=exp(lambda)))
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | alpha<=0 | lambda<=0,
+           NaN,qgamma(1-u*(1-pgamma(x,shape=lambda,scale=alpha)),shape=lambda,scale=alpha)-x)
 	return(ret)
 }
 
@@ -1923,20 +1885,14 @@ qgammad=function(x,u=0.5,alpha=1,lambda=1)
 
 #Generalized gamma quantile function
 
-qgengammad=function(x,u=0.5,alpha=1,lambda=1,sigma=1)
+qgengammad=function(x,u=0.5,b=1,d=1,k=1)
 {
-	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | sigma<=0,
-           NaN,
-           (exp(alpha)/sigma)**(-exp(-lambda)/sigma)*
-           (qgamma(1-u*(1-pgamma(x**alpha*
-           (exp(alpha)/sigma)**(exp(-lambda)),
-           shape=exp(lambda))),
-           shape=exp(lambda)))**(1/sigma))
+	ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u) | b<=0 | d<=0 | k<=0,
+           NaN,b*(qgamma(1-u*(1-pgamma((x/b)**d,shape=k)),shape=k))**(1/d)-x)
 	return(ret)
 }
 
 #The functions {\sf pgamma} and {\sf qgamma} are  from the {\sf R} base package.
-
 
 #Linear quantile function
 
@@ -2358,9 +2314,10 @@ qgenF=function(x,u=0.5,beta=0,sigma=1,m1=1,m2=1)
 {
     ret	= ifelse(x<=0 | u<=0 | u>=1 | length(x)!=length(u)
            | sigma<=0 | m1<=0 | m2<=0,
-           NaN,qgenf.orig(1-u*(1-pgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2)),
-           mu=beta,sigma=sigma,s1=m1,s2=m2)-x)
+           NaN,exp(beta)*m1**(-sigma)*(1/(1-qbeta(1-(1-pbeta(m1*(exp(-beta)*x)**(1/sigma)/
+           (m2+m1*(exp(-beta)*x)**(1/sigma)),
+           shape1=m1,shape2=m2))*u,shape1=m1,shape2=m2))-m2)**sigma-x)
 	return(ret)
 }
 
-#The functions {\sf pgenf.orig} and {\sf qgenf.orig} are  from the {\sf R} contributed package {\sf flexsurv}.
+#The functions {\sf pbeta} and {\sf qbeta} are  from the {\sf R} base package.

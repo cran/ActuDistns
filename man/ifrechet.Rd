@@ -19,13 +19,5 @@ ifrechet(x, t = 1, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ifrechet(x)
-
-## The function is currently defined as
-function (x, t = 1, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | a <= 
-        0 | b <= 0, NaN, b * (x^(-a - 1) - (x + t)^(-a - 1)))
-    return(ret)
-  }
 }
 \keyword{Gumbel II distribution}

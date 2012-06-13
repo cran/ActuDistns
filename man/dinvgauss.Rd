@@ -7,8 +7,8 @@ dinvgauss(x, alpha = 1, sigma = 1)
 }
 \arguments{
   \item{x}{scale or vector of positive values at which the pdf needs to be computed}
-  \item{alpha}{the value of alpha parameter, can be any real}
-  \item{sigma}{the value of sigma parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
+  \item{sigma}{the value of sigma parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
 \references{S. Nadarajah, S. A. A. Bakar, Tabulations of survival models for actuarial use, submitted}
@@ -17,14 +17,6 @@ dinvgauss(x, alpha = 1, sigma = 1)
 This function uses the \code{R} contributed package \code{SuppDists}.}
 
 \examples{x=runif(10,min=0,max=1)
-#y=dinvgauss(x)
-
-## The function is currently defined as
-function (x, alpha = 1, sigma = 1) 
-{
-    ret = ifelse(x <= 0, NaN, dinvGauss(x, nu = exp(-alpha), 
-        lambda = exp(sigma)))
-    return(ret)
-  }
+y=dinvgauss(x)
 }
 \keyword{Inverse Gaussian distribution}

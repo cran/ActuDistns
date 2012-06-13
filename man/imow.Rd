@@ -20,15 +20,5 @@ imow(x, t = 1, alpha = 1, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=imow(x)
-
-## The function is currently defined as
-function (x, t = 1, alpha = 1, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | alpha <= 
-        0 | beta <= 0 | lambda <= 0, NaN, log((exp((lambda * 
-        (x + t))^beta) - 1 + alpha)/(exp((lambda * x)^beta) - 
-        1 + alpha)))
-    return(ret)
-  }
 }
 \keyword{Marshall-Olkin Weibull distribution}

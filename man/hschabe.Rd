@@ -17,13 +17,5 @@ hschabe(x, theta = 1, gamma = 0.5)
 
 \examples{x=runif(10,min=0,max=1)
 y=hschabe(x)
-
-## The function is currently defined as
-function (x, theta = 1, gamma = 0.5) 
-{
-    ret = ifelse(x > theta | gamma <= 0 | gamma >= 1 | theta <= 
-        0, NaN, 1/(theta * gamma + x) + 1/(theta - x))
-    return(ret)
-  }
 }
 \keyword{Schabe distribution}

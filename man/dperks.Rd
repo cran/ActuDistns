@@ -7,7 +7,7 @@ dperks(x, alpha = 1, beta = 1)
 }
 \arguments{
   \item{x}{scale or vector of positive values at which the pdf needs to be computed}
-  \item{alpha}{the value of alpha parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
   \item{beta}{the value of beta parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
@@ -17,13 +17,5 @@ dperks(x, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dperks(x)
-
-## The function is currently defined as
-function (x, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | beta <= 0, NaN, exp(alpha + beta * 
-        x) * (1 + exp(alpha))/(1 + exp(alpha + beta * x))^2)
-    return(ret)
-  }
 }
 \keyword{Perks distribution}

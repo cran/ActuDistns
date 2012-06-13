@@ -17,17 +17,5 @@ hgpw(x, alpha = 1, theta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hgpw(x)
-
-## The function is currently defined as
-function (x, alpha = 1, theta = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | theta <= 0, NaN, alpha * 
-        theta * x^{
-        alpha - 1
-    } * (1 + x^alpha)^{
-        theta - 1
-    })
-    return(ret)
-  }
 }
 \keyword{Generalized power Weibull distribution}

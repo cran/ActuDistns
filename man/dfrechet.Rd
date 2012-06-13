@@ -17,13 +17,5 @@ dfrechet(x, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dfrechet(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | a <= 0 | b <= 0, NaN, a * b * x^(a - 
-        1) * exp(-b * x^(-a)))
-    return(ret)
-  }
 }
 \keyword{Gumbel II distribution}

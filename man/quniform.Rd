@@ -19,13 +19,5 @@ quniform(x, u = 0.5, a = 1, b = 2)
 
 \examples{x=runif(10,min=0,max=1)
 y=quniform(x)
-
-## The function is currently defined as
-function (x, u = 0.5, a = 1, b = 2) 
-{
-    ret = ifelse(x <= a | x >= b | u <= 0 | u >= 1 | length(x) != 
-        length(u) | b <= a | a <= 0, NaN, (b - x) * (1 - u))
-    return(ret)
-  }
 }
 \keyword{Uniform distribution}

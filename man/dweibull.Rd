@@ -7,7 +7,7 @@ dweibull(x, alpha = 1, sigma = 1)
 }
 \arguments{
   \item{x}{scale or vector of positive values at which the pdf needs to be computed}
-  \item{alpha}{the value of alpha parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
   \item{sigma}{the value of sigma parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
@@ -17,14 +17,5 @@ dweibull(x, alpha = 1, sigma = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dweibull(x)
-
-## The function is currently defined as
-function (x, alpha = 1, sigma = 1) 
-{
-    ret = ifelse(x <= 0 | sigma <= 0, NaN, exp(alpha) * x^{
-        sigma - 1
-    } * exp(-(1/sigma) * exp(alpha) * x^sigma))
-    return(ret)
-  }
 }
 \keyword{Weibull distribution}

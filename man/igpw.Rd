@@ -19,14 +19,5 @@ igpw(x, t = 1, alpha = 1, theta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=igpw(x)
-
-## The function is currently defined as
-function (x, t = 1, alpha = 1, theta = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | alpha <= 
-        0 | theta <= 0, NaN, (1 + (x + t)^alpha)^theta - (1 + 
-        x^alpha)^theta)
-    return(ret)
-  }
 }
 \keyword{Generalized power Weibull distribution}

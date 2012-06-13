@@ -21,16 +21,6 @@ igenF(x, t = 1, beta = 0, sigma = 1, m1 = 1, m2 = 1)
 This function uses the \code{R} contributed package \code{flexsurv}.}
 
 \examples{x=runif(10,min=0,max=1)
-#y=igenF(x)
-
-## The function is currently defined as
-function(x,t=1,beta=0,sigma=1,m1=1,m2=1)
-{
-    ret	= ifelse(x<=0 | t<=0 | length(x)!=length(t)
-           | sigma<=0 | m1<=0 | m2<=0,
-           NaN,log((1-pgenf.orig(x,mu=beta,sigma=sigma,s1=m1,s2=m2))
-           /(1-pgenf.orig(x+t,mu=beta,sigma=sigma,s1=m1,s2=m2))))
-	return(ret)
-    }
+y=igenF(x)
 }
 \keyword{generalized F distribution}

@@ -19,13 +19,5 @@ iuniform(x, t = 1, a = 0, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=iuniform(x)
-
-## The function is currently defined as
-function (x, t = 1, a = 0, b = 1) 
-{
-    ret = ifelse(x <= a | x >= b | t <= 0 | length(x) != length(t) | 
-        b <= a | a <= 0, NaN, log((b - x)/(b - x - t)))
-    return(ret)
-  }
 }
 \keyword{Uniform distribution}

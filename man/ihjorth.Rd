@@ -20,15 +20,5 @@ ihjorth(x, t = 1, delta = 1, theta = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ihjorth(x)
-
-## The function is currently defined as
-function (x, t = 1, delta = 1, theta = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | delta <= 
-        0 | theta <= 0 | beta <= 0, NaN, delta * x * t + delta * 
-        t * t/2 + (theta/beta) * log(1 + beta * t/(1 + beta * 
-        x)))
-    return(ret)
-  }
 }
 \keyword{Hjorth distribution}

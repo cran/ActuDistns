@@ -19,16 +19,5 @@ ijshape(x, t = 1, b = 1, nu = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ijshape(x)
-
-## The function is currently defined as
-function (x, t = 1, b = 1, nu = 1) 
-{
-    y1 = 1 - x/b
-    y2 = 1 - (x + t)/b
-    ret = ifelse(y1 <= 0 | y1 >= 1 | t <= 0 | t >= b | length(x) != 
-        length(t) | b <= 0 | nu <= 0, NaN, log((1 - (1 - y1 * 
-        y1)^nu)/(1 - (1 - y2 * y2)^nu)))
-    return(ret)
-  }
 }
 \keyword{J-shaped distribution}

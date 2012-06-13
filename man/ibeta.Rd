@@ -19,14 +19,5 @@ ibeta(x, t = 1, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ibeta(x)
-
-## The function is currently defined as
-function (x, t = 1, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | t <= 0 | t >= 1 | length(x) != 
-        length(t) | a <= 0 | b <= 0, NaN, log((1 - pbeta(x, shape1 = a, 
-        shape2 = b))/(1 - pbeta(x + t, shape1 = a, shape2 = b))))
-    return(ret)
-  }
 }
 \keyword{Beta distribution}

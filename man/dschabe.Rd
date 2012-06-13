@@ -17,14 +17,5 @@ dschabe(x, theta = 1, gamma = 0.5)
 
 \examples{x=runif(10,min=0,max=1)
 y=dschabe(x)
-
-## The function is currently defined as
-function (x, theta = 1, gamma = 0.5) 
-{
-    ret = ifelse(x > theta | gamma <= 0 | gamma >= 1 | theta <= 
-        0, NaN, (2 * gamma + (1 - gamma) * x/theta)/(theta * 
-        (gamma + x/theta)^2))
-    return(ret)
-  }
 }
 \keyword{Schabe distribution}

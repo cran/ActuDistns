@@ -17,14 +17,5 @@ dfw(x, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dfw(x)
-
-## The function is currently defined as
-function (x, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | beta <= 0, NaN, (alpha + 
-        beta/(x * x)) * exp(alpha * x - beta/x) * exp(-exp(alpha * 
-        x - beta/x)))
-    return(ret)
-  }
 }
 \keyword{Flexible Weibull distribution}

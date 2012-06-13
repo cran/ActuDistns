@@ -19,14 +19,5 @@ ilinear(x, t = 1, a = 1, b = 1)
 
 \examples{x=runif(10,min=2,max=3)
 y=ilinear(x)
-
-## The function is currently defined as
-function (x, t = 1, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | a < 
-        0 | b < 0 | a == 0 & b == 0, NaN, (a + b * x) * t + b * 
-        t * t/2)
-    return(ret)
-  }
 }
 \keyword{Linear failure rate distribution}

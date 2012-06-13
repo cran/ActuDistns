@@ -19,14 +19,5 @@ ifw(x, t = 1, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ifw(x)
-
-## The function is currently defined as
-function (x, t = 1, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | alpha <= 
-        0 | beta <= 0, NaN, exp(alpha * (x + t) - beta/(x + t)) - 
-        exp(alpha * x - beta/x))
-    return(ret)
-  }
 }
 \keyword{Flexible Weibull distribution}

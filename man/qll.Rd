@@ -19,14 +19,5 @@ qll(x, u = 0.5, alpha = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qll(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | lambda <= 0, NaN, ((-log(u) + lambda^(x^alpha))/(log(lambda)))^(1/alpha) - 
-        x)
-    return(ret)
-  }
 }
 \keyword{Loglog distribution}

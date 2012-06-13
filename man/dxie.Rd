@@ -18,14 +18,5 @@ dxie(x, lambda = 1, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dxie(x)
-
-## The function is currently defined as
-function (x, lambda = 1, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | lambda <= 0 | alpha <= 0 | beta <= 
-        0, NaN, lambda * beta * (x/alpha)^(beta - 1) * exp((x/alpha)^beta + 
-        lambda * alpha * (1 - exp((x/alpha)^beta))))
-    return(ret)
-  }
 }
 \keyword{Xie distribution}

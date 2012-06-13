@@ -17,13 +17,5 @@ hchen(x, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hchen(x)
-
-## The function is currently defined as
-function (x, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | beta <= 0 | lambda <= 0, NaN, beta * 
-        lambda * x^(beta - 1) * exp(x^beta))
-    return(ret)
-  }
 }
 \keyword{Chen distribution}

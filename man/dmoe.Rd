@@ -17,13 +17,5 @@ dmoe(x, alpha = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dmoe(x)
-
-## The function is currently defined as
-function (x, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | lambda <= 0, NaN, lambda * 
-        exp(lambda * x)/(exp(lambda * x) - 1 + alpha)^2)
-    return(ret)
-  }
 }
 \keyword{Marshall-Olkin exponential distribution}

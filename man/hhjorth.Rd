@@ -18,13 +18,5 @@ hhjorth(x, delta = 1, theta = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hhjorth(x)
-
-## The function is currently defined as
-function (x, delta = 1, theta = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | delta <= 0 | theta <= 0 | beta <= 0, 
-        NaN, delta * x + theta/(1 + beta * x))
-    return(ret)
-  }
 }
 \keyword{Hjorth distribution}

@@ -20,15 +20,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=ile(x)
-
-## The function is currently defined as
-function (x, t = 1, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | alpha <= 
-        0 | lambda <= 0, NaN, log((1 - plogis.exp(x, alpha = alpha, 
-        lambda = lambda))/(1 - plogis.exp(x + t, alpha = alpha, 
-        lambda = lambda))))
-    return(ret)
-  }
 }
 \keyword{Logistic exponential distribution}

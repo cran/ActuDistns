@@ -21,18 +21,5 @@ This function uses the \code{R} contributed package \code{hypergeo}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=ilai(x)
-
-## The function is currently defined as
-function (x, t = 1, lambda = 1, beta = 1, nu = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | lambda <= 
-        0 | beta < 0 | nu < 0, NaN, lambda * (-x^beta * genhypergeo(U = beta, 
-        L = 1 + beta, z = nu * x) + (x + t)^beta * genhypergeo(U = beta, 
-        L = 1 + beta, z = nu * (x + t)) - (nu/(beta + 1)) * x^(beta + 
-        1) * genhypergeo(U = 1 + beta, L = 2 + beta, z = nu * 
-        x) + (nu/(beta + 1)) * (x + t)^(beta + 1) * genhypergeo(U = 1 + 
-        beta, L = 2 + beta, z = nu * (x + t))))
-    return(ret)
-  }
 }
 \keyword{Lai distribution}

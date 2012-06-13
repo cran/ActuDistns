@@ -19,15 +19,5 @@ qbetad(x, u = 0.5, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qbetad(x)
-
-## The function is currently defined as
-function (x, u = 0.5, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | u <= 0 | u >= 1 | length(x) != 
-        length(u) | a <= 0 | b <= 0, NaN, qbeta(1 - u * (1 - 
-        pbeta(x, shape1 = a, shape2 = b)), shape1 = a, shape2 = b) - 
-        x)
-    return(ret)
-  }
 }
 \keyword{Beta distribution}

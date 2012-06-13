@@ -18,12 +18,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=dgumbeld(x)
-
-## The function is currently defined as
-function (x, mu = 1, sigma = 1) 
-{
-    ret = ifelse(sigma <= 0, NaN, dgumbel(x, mu = mu, sigma = sigma))
-    return(ret)
-  }
 }
 \keyword{Gumbel distribution}

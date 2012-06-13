@@ -18,13 +18,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=del(x)
-
-## The function is currently defined as
-function (x, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | beta <= 0, NaN, dexpo.logistic(x, 
-        alpha = alpha, beta = beta))
-    return(ret)
-  }
 }
 \keyword{Exponentiated logistic distribution}

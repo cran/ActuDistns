@@ -18,13 +18,5 @@ hlai(x, lambda = 1, beta = 1, nu = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hlai(x)
-
-## The function is currently defined as
-function (x, lambda = 1, beta = 1, nu = 1) 
-{
-    ret = ifelse(x <= 0 | lambda <= 0 | beta < 0 | nu < 0, NaN, 
-        lambda * (beta + nu * x) * x^(beta - 1) * exp(nu * x))
-    return(ret)
-  }
 }
 \keyword{Lai distribution}

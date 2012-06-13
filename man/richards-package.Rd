@@ -11,8 +11,8 @@ Computes the probability density function, hazard rate function, integrated haza
 \tabular{ll}{
 Package: \tab ActuDistns\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2012-06-13\cr
+Version: \tab 2.0\cr
+Date: \tab 2012-07-12\cr
 License: \tab What license is it under?\cr
 }
 probability density functions, hazard rate functions, integrated hazard rate functions and quantile functions

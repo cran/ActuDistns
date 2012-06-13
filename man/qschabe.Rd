@@ -19,15 +19,5 @@ qschabe(x, u = 0.5, theta = 1, gamma = 0.5)
 
 \examples{x=runif(10,min=0,max=1)
 y=qschabe(x)
-
-## The function is currently defined as
-function (x, u = 0.5, theta = 1, gamma = 0.5) 
-{
-    ret = ifelse(x > theta | u <= 0 | u >= 1 | length(x) != length(u) | 
-        theta <= 0 | gamma <= 0 | gamma >= 1, NaN, theta - x - 
-        theta * (gamma + 1) * (1 - (theta * x)/(u * (theta - 
-            x))))
-    return(ret)
-  }
 }
 \keyword{Schabe distribution}

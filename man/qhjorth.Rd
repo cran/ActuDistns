@@ -19,24 +19,5 @@ qhjorth(x, u = 0.5, delta = 1, theta = 1, beta = 1)
 \code{u} or the model parameters then NaNs will be returned as the output.}
 
 \examples{x=runif(10,min=0,max=1)
-y=qhjorth(x)
-
-## The function is currently defined as
-function (x, u = 0.5, delta = 1, theta = 1, beta = 1) 
-{
-    m = length(x)
-    ret = rep(NaN, m)
-    if (x > 0 & u > 0 & u < 1 & length(x) == length(u) & delta > 
-        0 & theta > 0 & beta > 0) {
-        for (i in 1:m) {
-            ff = function(t) {
-                delta * x[i] * t + delta * t * t/2 + (theta/beta) * 
-                  log(1 + beta * t/(1 + beta * x[i])) + log(u[i])
-            }
-            ret[i] = uniroot(ff, lower = 0, upper = 100)$root
-        }
-    }
-    return(ret)
-  }
-}
+y=qhjorth(x)}
 \keyword{Hjorth distribution}

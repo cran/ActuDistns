@@ -20,15 +20,5 @@ This function uses the \code{R} contributed package \code{actuar}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=qlgammad(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 1 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | lambda <= 0, NaN, qlgamma(1 - u * (1 - plgamma(x, 
-        shapelog = alpha, ratelog = lambda)), shapelog = alpha, 
-        ratelog = lambda) - x)
-    return(ret)
-  }
 }
 \keyword{Log gamma distribution}

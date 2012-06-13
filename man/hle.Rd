@@ -18,14 +18,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=hle(x)
-
-## The function is currently defined as
-function (x, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | lambda <= 0, NaN, dlogis.exp(x, 
-        alpha = alpha, lambda = lambda)/(1 - plogis.exp(x, alpha = alpha, 
-        lambda = lambda)))
-    return(ret)
-  }
 }
 \keyword{Logistic exponential distribution}

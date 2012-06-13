@@ -7,7 +7,7 @@ dpareto(x, alpha = 1, m = 1)
 }
 \arguments{
   \item{x}{scale or vector of values at which the pdf needs to be computed, values must be greater than m}
-  \item{alpha}{the value of alpha parameter, can be any real}
+  \item{alpha}{the value of alpha parameter, must be positive}
   \item{m}{the value of m parameter, must be positive}
 }
 \value{An object of the same length as \code{x}, giving the pdf values computed at \code{x}}
@@ -17,12 +17,5 @@ dpareto(x, alpha = 1, m = 1)
 
 \examples{x=runif(10,min=2,max=3)
 y=dpareto(x)
-
-## The function is currently defined as
-function (x, alpha = 1, m = 1) 
-{
-    ret = ifelse(x <= m | m <= 0, NaN, (m/x)^(exp(alpha)) * exp(alpha)/x)
-    return(ret)
-  }
 }
 \keyword{Pareto distribution}

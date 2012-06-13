@@ -19,15 +19,5 @@ qfw(x, u = 0.5, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qfw(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | beta <= 0, NaN, (1/(2 * alpha)) * (log(-log(u) + 
-        exp(alpha * x - beta/x)) + sqrt((log(-log(u) + exp(alpha * 
-        x - beta/x)))^2 + 4 * alpha * beta)) - x)
-    return(ret)
-  }
 }
 \keyword{Flexible Weibull distribution}

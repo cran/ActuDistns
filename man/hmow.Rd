@@ -18,16 +18,5 @@ hmow(x, alpha = 1, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hmow(x)
-
-## The function is currently defined as
-function (x, alpha = 1, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | beta <= 0 | lambda <= 
-        0, NaN, beta * lambda^beta * x^{
-        beta - 1
-    } * exp((lambda * x)^beta)/(exp((lambda * x)^beta) - 1 + 
-        alpha))
-    return(ret)
-  }
 }
 \keyword{Marshall-Olkin Weibull distribution}

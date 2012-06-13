@@ -21,16 +21,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=qew(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, c = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | c <= 0 | lambda <= 0, NaN, (1/lambda) * 
-        qexpo.weibull(1 - u * (1 - pexpo.weibull(lambda * x, 
-            alpha = c, theta = alpha)), alpha = c, theta = alpha) - 
-        x)
-    return(ret)
-  }
 }
 \keyword{Exponentiated Weibull distribution}

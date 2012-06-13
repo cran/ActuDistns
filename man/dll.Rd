@@ -17,14 +17,5 @@ dlld(x, alpha = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=dlld(x)
-
-## The function is currently defined as
-function (x, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | alpha <= 0 | lambda <= 0, NaN, alpha * 
-        log(lambda) * x^(alpha - 1) * lambda^(x^alpha) * exp(1 - 
-        lambda^(x^alpha)))
-    return(ret)
-  }
 }
 \keyword{Loglog distribution}

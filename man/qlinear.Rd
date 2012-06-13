@@ -19,15 +19,5 @@ qlinear(x, u = 0.5, a = 1, b = 1)
 
 \examples{x=runif(10,min=2,max=3)
 y=qlinear(x)
-
-## The function is currently defined as
-function (x, u = 0.5, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        a < 0 | b < 0 | a == 0 & b == 0, NaN, (1/b) * (-(a + 
-        b * x) + sqrt(a * a + b * b * x * x + 2 * a * b * x + 
-        2 * b * log(u))))
-    return(ret)
-  }
 }
 \keyword{Linear failure rate distribution}

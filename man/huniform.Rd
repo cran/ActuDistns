@@ -17,13 +17,5 @@ huniform(x, a = 1, b = 2)
 
 \examples{x=runif(10,min=1,max=2)
 y=huniform(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 2) 
-{
-    ret = ifelse(x <= a | x >= b | b <= a | a <= 0, NaN, 1/(b - 
-        x))
-    return(ret)
-  }
 }
 \keyword{Uniform distribution}

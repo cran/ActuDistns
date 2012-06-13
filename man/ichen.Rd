@@ -19,13 +19,5 @@ ichen(x, t = 1, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ichen(x)
-
-## The function is currently defined as
-function (x, t = 1, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | beta <= 
-        0 | lambda <= 0, NaN, lambda * (exp((x + t)^beta) - exp(x^beta)))
-    return(ret)
-  }
 }
 \keyword{Chen distribution}

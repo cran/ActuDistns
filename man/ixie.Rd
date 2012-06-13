@@ -20,14 +20,5 @@ ixie(x, t = 1, lambda = 1, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=ixie(x)
-
-## The function is currently defined as
-function (x, t = 1, lambda = 1, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | t <= 0 | length(x) != length(t) | lambda <= 
-        0 | alpha <= 0 | beta <= 0, NaN, lambda * alpha * (exp(((x + 
-        t)/alpha)^beta) - exp((x/alpha)^beta)))
-    return(ret)
-  }
 }
 \keyword{Xie distribution}

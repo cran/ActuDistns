@@ -19,14 +19,5 @@ qkum(x, u = 0.5, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qkum(x)
-
-## The function is currently defined as
-function (x, u = 0.5, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | u <= 0 | u >= 1 | length(x) != 
-        length(u) | a <= 0 | b <= 0, NaN, (1 - u^(-1/b) * (1 - 
-        x^a))^(1/a) - x)
-    return(ret)
-  }
 }
 \keyword{Kumaraswamy distribution}

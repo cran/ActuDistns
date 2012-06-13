@@ -19,16 +19,6 @@ hgenF(x, beta = 0, sigma = 1, m1 = 1, m2 = 1)
 This function uses the \code{R} contributed package \code{flexsurv}.}
 
 \examples{x=runif(10,min=0,max=1)
-#y=hgenF(x)
-
-## The function is currently defined as
-function (x, beta = 0, sigma = 1, m1 = 1, m2 = 1) 
-{
-    ret = ifelse(x <= 0 | sigma <= 0 | m1 <= 0 | m2 <= 0, NaN, 
-        dgenf.orig(x, mu = beta, sigma = sigma, s1 = m1, s2 = m2)/(1 - 
-            pgenf.orig(x, mu = beta, sigma = sigma, s1 = m1, 
-                s2 = m2)))
-    return(ret)
-  }
+y=hgenF(x)
 }
 \keyword{Generalized F distribution}

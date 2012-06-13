@@ -19,14 +19,5 @@ qchen(x, u = 0.5, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qchen(x)
-
-## The function is currently defined as
-function (x, u = 0.5, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        beta <= 0 | lambda <= 0, NaN, (log(exp(x^beta) - log(u)/lambda))^(1/beta) - 
-        x)
-    return(ret)
-  }
 }
 \keyword{Chen distribution}

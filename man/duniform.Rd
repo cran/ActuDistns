@@ -17,12 +17,5 @@ duniform(x, a = 1, b = 2)
 
 \examples{x=runif(10,min=1,max=2)
 y=duniform(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 2) 
-{
-    ret = ifelse(b <= a | a <= 0, NaN, 1/(b - a))
-    return(ret)
-  }
 }
 \keyword{Uniform distribution}

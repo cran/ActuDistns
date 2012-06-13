@@ -17,14 +17,5 @@ djshape(x, b = 1, nu = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=djshape(x)
-
-## The function is currently defined as
-function (x, b = 1, nu = 1) 
-{
-    y = 1 - x/b
-    ret = ifelse(y <= 0 | y >= 1 | b <= 0 | nu <= 0, NaN, (2/b) * 
-        nu * y * (1 - y * y)^(nu - 1))
-    return(ret)
-  }
 }
 \keyword{J-shaped distribution}

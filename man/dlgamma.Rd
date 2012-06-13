@@ -18,13 +18,5 @@ This function uses the \code{R} contributed package \code{actuar}.}
 
 \examples{x=runif(10,min=2,max=3)
 y=dlgammad(x)
-
-## The function is currently defined as
-function (x, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 1 | alpha <= 0 | lambda <= 0, NaN, dlgamma(x, 
-        shapelog = alpha, ratelog = lambda))
-    return(ret)
-  }
 }
 \keyword{Log gamma distribution}

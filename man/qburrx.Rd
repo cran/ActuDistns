@@ -20,15 +20,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=qburrx(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | lambda <= 0, NaN, qburrX(1 - u * (1 - pburrX(x, 
-        alpha = alpha, lambda = lambda)), alpha = alpha, lambda = lambda) - 
-        x)
-    return(ret)
-  }
 }
 \keyword{BurrX distribution}

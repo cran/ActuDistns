@@ -20,15 +20,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=qel(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | beta <= 0, NaN, qexpo.logistic(1 - u * (1 - 
-        pexpo.logistic(x, alpha = alpha, beta = beta)), alpha = alpha, 
-        beta = beta) - x)
-    return(ret)
-  }
 }
 \keyword{Exponentiated logistic distribution}

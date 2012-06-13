@@ -20,14 +20,5 @@ qxie(x, u = 0.5, lambda = 1, alpha = 1, beta = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qxie(x)
-
-## The function is currently defined as
-function (x, u = 0.5, lambda = 1, alpha = 1, beta = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        lambda <= 0 | alpha <= 0 | beta <= 0, NaN, alpha * (log(exp((x/alpha)^beta) - 
-        log(u)/(lambda * alpha)))^(1/beta) - x)
-    return(ret)
-  }
 }
 \keyword{Xie distribution}

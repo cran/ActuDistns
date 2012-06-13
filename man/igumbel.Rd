@@ -20,14 +20,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=igumbel(x)
-
-## The function is currently defined as
-function (x, t = 1, mu = 1, sigma = 1) 
-{
-    ret = ifelse(length(x) != length(t) | sigma <= 0, NaN, -log((1 - 
-        pgumbel(x + t, mu = mu, sigma = sigma))/(1 - pgumbel(x, 
-        mu = mu, sigma = sigma))))
-    return(ret)
-  }
 }
 \keyword{Gumbel distribution}

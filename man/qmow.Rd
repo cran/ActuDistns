@@ -20,15 +20,5 @@ qmow(x, u = 0.5, alpha = 1, beta = 1, lambda = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=qmow(x)
-
-## The function is currently defined as
-function (x, u = 0.5, alpha = 1, beta = 1, lambda = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        alpha <= 0 | beta <= 0 | lambda <= 0, NaN, (1/lambda) * 
-        (log(1 - alpha + (1/u) * (exp((lambda * x)^beta) - 1 + 
-            alpha)))^(1/beta) - x)
-    return(ret)
-  }
 }
 \keyword{Marshall-Olkin Weibull distribution}

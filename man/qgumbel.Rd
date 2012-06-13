@@ -20,14 +20,5 @@ This function uses the \code{R} contributed package \code{reliaR}.}
 
 \examples{x=runif(10,min=0,max=1)
 y=qgumbeld(x)
-
-## The function is currently defined as
-function (x, u = 0.5, mu = 1, sigma = 1) 
-{
-    ret = ifelse(x <= 0 | u <= 0 | u >= 1 | length(x) != length(u) | 
-        sigma <= 0, NaN, qgumbel(1 - u * (1 - pgumbel(x, mu = mu, 
-        sigma = sigma)), mu = mu, sigma = sigma) - x)
-    return(ret)
-  }
 }
 \keyword{Gumbel distribution}

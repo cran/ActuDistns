@@ -17,13 +17,5 @@ hkum(x, a = 1, b = 1)
 
 \examples{x=runif(10,min=1,max=2)
 y=hkum(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | a <= 0 | b <= 0, NaN, a * 
-        b * x^(a - 1)/(1 - x^a))
-    return(ret)
-  }
 }
 \keyword{Kumaraswamy distribution}

@@ -17,13 +17,5 @@ hbeta(x, a = 1, b = 1)
 
 \examples{x=runif(10,min=0,max=1)
 y=hbeta(x)
-
-## The function is currently defined as
-function (x, a = 1, b = 1) 
-{
-    ret = ifelse(x <= 0 | x >= 1 | a <= 0 | b <= 0, NaN, dbeta(x, 
-        shape1 = a, shape2 = b)/(1 - pbeta(x, shape1 = a, shape2 = b)))
-    return(ret)
-  }
 }
 \keyword{Beta distribution}
