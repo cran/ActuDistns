@@ -11,8 +11,8 @@ Computes the probability density function, hazard rate function, integrated haza
 \tabular{ll}{
 Package: \tab ActuDistns\cr
 Type: \tab Package\cr
-Version: \tab 2.0\cr
-Date: \tab 2012-07-12\cr
+Version: \tab 3.0\cr
+Date: \tab 2012-09-13\cr
 License: \tab What license is it under?\cr
 }
 probability density functions, hazard rate functions, integrated hazard rate functions and quantile functions
@@ -22,5 +22,5 @@ probability density functions, hazard rate functions, integrated hazard rate fun
 Maintainer: Saralees Nadarajah <Saralees.Nadarajah@manchester.ac.uk>
 }
 \references{
-S. Nadarajah, S. A. A. Bakar, Tabulations of survival models for actuarial use, submitted}
+S. Nadarajah, S. A. A. Bakar, A new R package for actuarial survival models, Computational Statistics}
 \keyword{ package }

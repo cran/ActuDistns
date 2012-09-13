@@ -71,12 +71,12 @@ dmakehambeard=function(x,alpha=1,beta=1,rho=1,epsilon=1)
 
 
 #Exponential probability density function
-
-dexponential=function(x,alpha=1)
-{
-	ret	= ifelse(x<=0 | alpha<=0, NaN,alpha*exp(-alpha*x))
-	return(ret)
-}
+#
+#dexponential=function(x,alpha=1)
+#{
+#	ret	= ifelse(x<=0 | alpha<=0, NaN,alpha*exp(-alpha*x))
+#	return(ret)
+#}
 
 
 
@@ -91,24 +91,24 @@ dpareto=function(x,alpha=1,m=1)
 
 
 #Weibull probability density function
-
-dweibull=function(x,alpha=1,sigma=1)
-{
-	ret	= ifelse(x<=0 | sigma<=0 | alpha<=0,NaN,
-           sigma*alpha**(-sigma)*x**(sigma-1)*exp(-(x/alpha)**sigma))
-	return(ret)
-}
+#
+#dweibull=function(x,alpha=1,sigma=1)
+#{
+#	ret	= ifelse(x<=0 | sigma<=0 | alpha<=0,NaN,
+#           sigma*alpha**(-sigma)*x**(sigma-1)*exp(-(x/alpha)**sigma))
+#	return(ret)
+#}
 
 
 
 #Logistic probability density function
 
-dlogistic=function(x,alpha=1,sigma=1)
-{
-	ret	= ifelse (sigma<=0,NaN,dlogis(x,location=alpha,scale=sigma))
-	return(ret)
-}
-
+#dlogistic=function(x,alpha=1,sigma=1)
+#{
+#	ret	= ifelse (sigma<=0,NaN,dlogis(x,location=alpha,scale=sigma))
+#	return(ret)
+#}
+#
 #The function {\sf dlogis} is  from the {\sf R} base package.
 
 
@@ -124,25 +124,25 @@ dloglogistic=function(x,alpha=1,sigma=1)
 
 
 #Normal probability density function
-
-dnormal=function(x,alpha=1,sigma=1)
-{
-	ret	= ifelse (sigma<=0,NaN,dnorm(x,mean=alpha,sd=sigma))
-	return(ret)
-}
-
+#
+#dnormal=function(x,alpha=1,sigma=1)
+#{
+#	ret	= ifelse (sigma<=0,NaN,dnorm(x,mean=alpha,sd=sigma))
+#	return(ret)
+#}
+#
 #The function {\sf dnorm} is  from the {\sf R} base package.
 
 
 #Lognormal probability density function
-
-dlognormal=function(x,alpha=1,sigma=1)
-{
-	ret	= ifelse(x<=0 | sigma<=0, NaN,
-           dlnorm(x,meanlog=alpha,sdlog=sigma))
-	return(ret)
-}
-
+#
+#dlognormal=function(x,alpha=1,sigma=1)
+#{
+#	ret	= ifelse(x<=0 | sigma<=0, NaN,
+#           dlnorm(x,meanlog=alpha,sdlog=sigma))
+#	return(ret)
+#}
+#
 #The function {\sf dlnorm} is  from the {\sf R} base package.
 
 
@@ -158,14 +158,14 @@ dinvgauss=function(x,alpha=1,sigma=1)
 
 
 #Gamma probability density function
-
-dgammad=function(x,alpha=1,lambda=1)
-{
-	ret	= ifelse(x<=0 | alpha<=0 | lambda<=0, NaN,
-           dgamma(x,shape=lambda,scale=alpha))
-	return(ret)
-}
-
+#
+#dgammad=function(x,alpha=1,lambda=1)
+#{
+#	ret	= ifelse(x<=0 | alpha<=0 | lambda<=0, NaN,
+#           dgamma(x,shape=lambda,scale=alpha))
+#	return(ret)
+#}
+#
 #The function {\sf dgamma} is  from the {\sf R} base package.
 
 
@@ -192,12 +192,12 @@ dlinear=function(x,a=1,b=1)
 
 
 #Uniform probability density function
-
-duniform=function(x,a=1,b=2)
-{
-	ret	= ifelse(b<=a | a<=0,NaN,1/(b-a))
-	return(ret)
-}
+#
+#duniform=function(x,a=1,b=2)
+#{
+#	ret	= ifelse(b<=a | a<=0,NaN,1/(b-a))
+#	return(ret)
+#}
 
 
 
@@ -299,14 +299,14 @@ djshape=function(x,b=1,nu=1)
 
 
 #Beta probability density function
-
-dbetad=function(x,a=1,b=1)
-{
-    ret	= ifelse(x<=0 | x>=1 | a<=0 | b<=0,
-           NaN,dbeta(x,shape1=a,shape2=b))
-	return(ret)
-}
-
+#
+#dbetad=function(x,a=1,b=1)
+#{
+#    ret	= ifelse(x<=0 | x>=1 | a<=0 | b<=0,
+#           NaN,dbeta(x,shape1=a,shape2=b))
+#	return(ret)
+#}
+#
 #The function  {\sf dbeta} is  from the {\sf R} base package.
 
 
